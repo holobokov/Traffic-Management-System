@@ -8,18 +8,20 @@ public class Main {
         directions.add(Direction.south);
         directions.add(Direction.west);
 
-        Intersection intersection = new Intersection("318935", "Marszałkowska", 93.22, 224.1, directions, 3);
-        Intersection intersection2 = new Intersection("318936", "Marszałkowska2", 93.22, 224.1, directions, 3);
-        Intersection intersection3 = new Intersection("318937", "Marszałkowska3", 93.22, 224.1, directions, 3);
+        ArrayList<TrafficLights> trfc = new ArrayList<TrafficLights>();
+        trfc.add(new TrafficLights(Light.red, Direction.north, WorkingMode.auto));
+        trfc.add(new TrafficLights(Light.green, Direction.east, WorkingMode.auto));
+        trfc.add(new TrafficLights(Light.green, Direction.west, WorkingMode.auto));
+
+
+        Intersection intersection = new Intersection("318935", "Marszałkowska", 93.22, 224.1, directions, 3, trfc);
+        Intersection intersection2 = new Intersection("318936", "Marszałkowska2", 93.22, 224.1, directions, 3, trfc);
+        Intersection intersection3 = new Intersection("318937", "Marszałkowska3", 93.22, 224.1, directions, 3, trfc);
 
         intersection.addIntersection();
         intersection2.addIntersection();
         intersection3.addIntersection();
 
-        Intersection.printIntersections();
-
-        intersection.removeIntersection();
-        intersection2.removeIntersection();
         Intersection.printIntersections();
     }
 

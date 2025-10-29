@@ -24,9 +24,8 @@ public class Intersection {
     private double lon;
     private ArrayList<Direction> directions;
     private int vehiclesWaiting;
+    private ArrayList<TrafficLights> trafficLightsOnIntersection = new ArrayList<TrafficLights>();
     private static ArrayList<Intersection> intersections = new  ArrayList<Intersection>();
-    //TODO: dodac sygnalizacje swietlna jako private pole klasy.
-    //TODO: idea zeby zrobic mape w ktorej kazdy direction bedzie mial odpowiadajace mu swiatlo;
 
     public Intersection() {
         id = "-";
@@ -37,13 +36,14 @@ public class Intersection {
         vehiclesWaiting = 0;
     }
 
-    public Intersection(String id, String name, double lat, double lon,  ArrayList<Direction> directions, int vehiclesWaiting) {
+    public Intersection(String id, String name, double lat, double lon,  ArrayList<Direction> directions, int vehiclesWaiting, ArrayList<TrafficLights> trafficLightsOnIntersection) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
         this.directions = new ArrayList<>(directions);
         this.vehiclesWaiting = vehiclesWaiting;
+        this.trafficLightsOnIntersection = new ArrayList<>(trafficLightsOnIntersection);
     }
 
     public void addIntersection() {
@@ -90,12 +90,22 @@ public class Intersection {
         return str;
     }
 
+    public String getStringLights() {
+        String str = "";
+
+        for (TrafficLights trfc:  trafficLightsOnIntersection) {
+            str += trfc.toString() + "\n";
+        }
+
+        return str;
+    }
+
     public String getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "Id: " + id + ", Name: " + name + ", Lat: " + lat + ", Lon: " + lon + ", Directions: " + getStringDirections() + "Number of waiting vehicles: " + vehiclesWaiting;
+        return "Id: " + id + ", Name: " + name + ", Lat: " + lat + ", Lon: " + lon + ", Directions: " + getStringDirections() + "Number of waiting vehicles: " + vehiclesWaiting + '\n' + getStringLights();
     }
 }
