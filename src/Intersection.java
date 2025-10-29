@@ -22,9 +22,8 @@ public class Intersection {
     private String name;
     private double lat;
     private double lon;
-    private ArrayList<Direction> directions;
+    private Map<Direction, TrafficLights> trafficLightsByDirection = new HashMap<>();
     private int vehiclesWaiting;
-    private ArrayList<TrafficLights> trafficLightsOnIntersection = new ArrayList<TrafficLights>();
     private static ArrayList<Intersection> intersections = new  ArrayList<Intersection>();
 
     public Intersection() {
@@ -32,18 +31,26 @@ public class Intersection {
         name = "-";
         lat = 0;
         lon = 0;
-        directions = new ArrayList<>();
+        trafficLightsByDirection = new HashMap<>();
         vehiclesWaiting = 0;
     }
 
-    public Intersection(String id, String name, double lat, double lon,  ArrayList<Direction> directions, int vehiclesWaiting, ArrayList<TrafficLights> trafficLightsOnIntersection) {
+    public Intersection(String id, String name, double lat, double lon, 
+                        ArrayList<Direction> availableDirections,
+                        ArrayList<TrafficLights> trafficLights, 
+                        int vehiclesWaiting) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
-        this.directions = new ArrayList<>(directions);
+        this.trafficLightsByDirection = new HashMap<>();
         this.vehiclesWaiting = vehiclesWaiting;
-        this.trafficLightsOnIntersection = new ArrayList<>(trafficLightsOnIntersection);
+        
+        for (TrafficLights light : trafficLights) {
+            if (availableDirections.contains(light.getDirection())) {
+                this.trafficLightsByDirection.put(light.getDirection(), light);
+            }
+        }
     }
 
     public void addIntersection() {
@@ -73,18 +80,8 @@ public class Intersection {
 
     public String getStringDirections() {
         String str = "";
-        for (int i = 0; i < directions.size(); i++) {
-            if (directions.get(i).getValue() == 1) {
-                str += "north";
-            } else if (directions.get(i).getValue() == 2) {
-                str += "south";
-            } else if (directions.get(i).getValue() == 3) {
-                str += "east";
-            } else {
-                str += "west";
-            }
-
-            str += ", ";
+        for (Direction direction : trafficLightsByDirection.keySet()) {
+            str += direction + ", ";
         }
 
         return str;
@@ -93,8 +90,8 @@ public class Intersection {
     public String getStringLights() {
         String str = "";
 
-        for (TrafficLights trfc:  trafficLightsOnIntersection) {
-            str += trfc.toString() + "\n";
+        for (TrafficLights light : trafficLightsByDirection.values()) {
+            str += light.toString() + "\n";
         }
 
         return str;

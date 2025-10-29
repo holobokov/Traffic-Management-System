@@ -30,6 +30,7 @@ public class TrafficLights {
 
     public TrafficLights(Light currentLight, Direction direction, WorkingMode workingMode) {
         this.currentLight = currentLight;
+        this.greenDuration = 30;
         this.direction = direction;
         this.workingMode = workingMode;
         statesHistory.add(currentLight);
@@ -47,9 +48,12 @@ public class TrafficLights {
         return currentLight;
     }
 
-    //TODO: zrobic toString metode
+    public Direction getDirection() {
+        return direction;
+    }
+
     @Override
     public String toString() {
-        return "Current light: " + currentLight + ", " + "Green duration: " + greenDuration + ", " + "Direction: " + direction + ", " + "Working mode: " + workingMode;
+        return "Direction: " + direction + ", Current light: " + currentLight + ", " + "Green duration: " + greenDuration + ", " + "Working mode: " + workingMode;
     }
 }

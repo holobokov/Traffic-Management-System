@@ -7,6 +7,7 @@ public class Main {
         directions.add(Direction.north);
         directions.add(Direction.south);
         directions.add(Direction.west);
+        directions.add(Direction.east);
 
         ArrayList<TrafficLights> trfc = new ArrayList<TrafficLights>();
         trfc.add(new TrafficLights(Light.red, Direction.north, WorkingMode.auto));
@@ -14,9 +15,9 @@ public class Main {
         trfc.add(new TrafficLights(Light.green, Direction.west, WorkingMode.auto));
 
 
-        Intersection intersection = new Intersection("318935", "Marszałkowska", 93.22, 224.1, directions, 3, trfc);
-        Intersection intersection2 = new Intersection("318936", "Marszałkowska2", 93.22, 224.1, directions, 3, trfc);
-        Intersection intersection3 = new Intersection("318937", "Marszałkowska3", 93.22, 224.1, directions, 3, trfc);
+        Intersection intersection = new Intersection("318935", "Marszałkowska", 93.22, 224.1, directions, trfc, 3);
+        Intersection intersection2 = new Intersection("318936", "Marszałkowska2", 93.22, 224.1, directions, trfc, 3);
+        Intersection intersection3 = new Intersection("318937", "Marszałkowska3", 93.22, 224.1, directions, trfc, 3);
 
         intersection.addIntersection();
         intersection2.addIntersection();
