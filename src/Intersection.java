@@ -1,20 +1,10 @@
 import java.util.*;
 
 enum Direction {
-    north(1),
-    south(2),
-    east(3),
-    west(4);
-
-    public final int value;
-
-    Direction(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    north,
+    south,
+    east,
+    west;
 }
 
 public class Intersection {
@@ -103,6 +93,6 @@ public class Intersection {
 
     @Override
     public String toString() {
-        return "Id: " + id + ", Name: " + name + ", Lat: " + lat + ", Lon: " + lon + ", Directions: " + getStringDirections() + "Number of waiting vehicles: " + vehiclesWaiting + '\n' + getStringLights();
+        return "Id: " + id + ", Name: " + name + ", Lat: " + lat + ", Lon: " + lon + ", Directions: " + getStringDirections() + "Number of waiting vehicles: " + vehiclesWaiting;
     }
 }

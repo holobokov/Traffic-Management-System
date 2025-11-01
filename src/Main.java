@@ -20,6 +20,11 @@ public class Main {
         intersection3.addIntersection();
 
         Intersection.printIntersections();
+
+        Car car = new Car();
+        Bus bus = new Bus();
+        System.out.println(car.getPriority());
+        System.out.println(bus.getPriority());
     }
 
     public static void greetings() {
