@@ -1,30 +1,32 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
         //
         ArrayList<Direction> directions = new ArrayList<Direction>(Arrays.asList(Direction.north, Direction.east, Direction.west));
 
-        ArrayList<TrafficLights> trfc = new ArrayList<TrafficLights>(Arrays.asList(new TrafficLights(Light.red, Direction.north, WorkingMode.auto),
+        ArrayList<TrafficLights> trfc = new ArrayList<TrafficLights>();
+        Collections.addAll(trfc, new TrafficLights(Light.red, Direction.north, WorkingMode.auto),
                 new TrafficLights(Light.green, Direction.east, WorkingMode.auto),
-                new TrafficLights(Light.green, Direction.west, WorkingMode.auto)));
+                new TrafficLights(Light.green, Direction.west, WorkingMode.auto));
 
 
         Intersection intersection = new Intersection("318935", "Marszałkowska x Warszawska", 93.22, 224.1, directions, trfc, 3);
         Intersection intersection2 = new Intersection("318936", "Mikołowska x Karola Miarki", 53.22, 224.1, directions, trfc, 3);
         Intersection intersection3 = new Intersection("318937", "Mickiewicza x 3 maja", 97.22, 224.1, directions, trfc, 3);
 
-        intersection.addIntersection();
-        intersection2.addIntersection();
-        intersection3.addIntersection();
-
         Intersection.printIntersections();
 
         Car car = new Car();
         Bus bus = new Bus();
+        EmergencyVehicle ambulance = new EmergencyVehicle();
         System.out.println(car.getPriority());
         System.out.println(bus.getPriority());
+        System.out.println(ambulance.getPriority());
+        ArrayList<Car> bb = Bus.getVehicles();
+        System.out.println(bb.size());
     }
 
     public static void greetings() {

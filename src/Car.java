@@ -45,7 +45,7 @@ public class Car {
         return id;
     }
 
-    public ArrayList<Car> getVehicles() {
+    public static ArrayList<Car> getVehicles() {
         return vehicles;
     }
 }

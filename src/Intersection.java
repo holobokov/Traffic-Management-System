@@ -12,8 +12,9 @@ public class Intersection {
     private String name;
     private double lat;
     private double lon;
-    private Map<Direction, TrafficLights> trafficLightsByDirection = new HashMap<>();
     private int vehiclesWaiting;
+    private Map<Direction, TrafficLights> trafficLightsByDirection = new HashMap<Direction, TrafficLights>();
+    private Map<Direction, Car> vehiclesByDirection = new HashMap<Direction, Car>();
     private static ArrayList<Intersection> intersections = new  ArrayList<Intersection>();
 
     public Intersection() {
@@ -23,6 +24,7 @@ public class Intersection {
         lon = 0;
         trafficLightsByDirection = new HashMap<>();
         vehiclesWaiting = 0;
+        intersections.add(this);
     }
 
     public Intersection(String id, String name, double lat, double lon, 
@@ -41,11 +43,9 @@ public class Intersection {
                 this.trafficLightsByDirection.put(light.getDirection(), light);
             }
         }
-    }
-
-    public void addIntersection() {
         intersections.add(this);
     }
+
 
     public void removeIntersection() {
         Iterator<Intersection> it =  intersections.iterator();
