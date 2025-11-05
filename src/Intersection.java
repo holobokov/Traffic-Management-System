@@ -14,8 +14,8 @@ public class Intersection {
     private double lon;
     private int vehiclesWaiting;
     private Map<Direction, TrafficLights> trafficLightsByDirection = new HashMap<Direction, TrafficLights>();
-    private Map<Direction, Car> vehiclesByDirection = new HashMap<Direction, Car>();
-    private static ArrayList<Intersection> intersections = new  ArrayList<Intersection>();
+    private Map<Direction, ArrayList<Car>> vehiclesByDirection = new HashMap<Direction, ArrayList<Car>>();
+    private static ArrayList<Intersection> intersections = new ArrayList<Intersection>();
 
     public Intersection() {
         id = "-";
@@ -27,9 +27,9 @@ public class Intersection {
         intersections.add(this);
     }
 
-    public Intersection(String id, String name, double lat, double lon, 
+    public Intersection(String id, String name, double lat, double lon,
                         ArrayList<Direction> availableDirections,
-                        ArrayList<TrafficLights> trafficLights, 
+                        ArrayList<TrafficLights> trafficLights,
                         int vehiclesWaiting) {
         this.id = id;
         this.name = name;
@@ -37,7 +37,7 @@ public class Intersection {
         this.lon = lon;
         this.trafficLightsByDirection = new HashMap<>();
         this.vehiclesWaiting = vehiclesWaiting;
-        
+
         for (TrafficLights light : trafficLights) {
             if (availableDirections.contains(light.getDirection())) {
                 this.trafficLightsByDirection.put(light.getDirection(), light);
@@ -46,9 +46,29 @@ public class Intersection {
         intersections.add(this);
     }
 
+    public void addVehicle(Car vehicle, Direction direction) {
+        if (!vehiclesByDirection.containsKey(direction)) vehiclesByDirection.put(direction, new ArrayList<>());
+        vehiclesByDirection.get(direction).add(vehicle);
+    }
+
+    public void showVehicles() {
+        for (Direction dir: vehiclesByDirection.keySet()) {
+            int c = 0;
+            int b = 0;
+            int e = 0;
+            for (Car car : vehiclesByDirection.get(dir)) {
+                if (car.getPriority() == 1) c++;
+                else if (car.getPriority() == 3) b++;
+                else if (car.getPriority() == 10) e++;
+            }
+
+            System.out.println("Direction: " + dir + ", cars: " + c + ", buses: " + b + ", emergency vehicles:" + e);
+        }
+    }
+
 
     public void removeIntersection() {
-        Iterator<Intersection> it =  intersections.iterator();
+        Iterator<Intersection> it = intersections.iterator();
 
         while (it.hasNext()) {
             Intersection curr = it.next();
@@ -63,7 +83,7 @@ public class Intersection {
     }
 
     public static void printIntersections() {
-        for (Intersection intersection: intersections) {
+        for (Intersection intersection : intersections) {
             System.out.println(intersection.toString());
         }
     }
